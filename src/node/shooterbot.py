@@ -2,14 +2,17 @@ import discord
 import psycopg2
 import random
 from discord.ext import commands
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 try:
-    connection = psycopg2.connect(user= os.getenv('secrets.USERNAME'),
-                                  password = os.getenv('secrets.PASSWORD'),
-                                  host = os.getenv('secrets.HOST'),
-                                  port = os.getenv('secrets.PORT'),
-                                  database = os.getenv('secrets.DATABASE'))
+    connection = psycopg2.connect(user= os.getenv("DBUSER"),
+                                  password = os.getenv("DBPASS"),
+                                  host = os.getenv("DBIP"),
+                                  port = os.getenv("DBPORT"),
+                                  database = os.getenv("DBNAME"))
     cursor = connection.cursor()
     postgreSQL_select_Query = 'SELECT * FROM pictures'
     cursor.execute(postgreSQL_select_Query)
@@ -51,7 +54,7 @@ async def on_message(message):
         cleanedOutput = str(output).replace("'", '').replace(',','').replace('(', '').replace(')', '')
         await message.channel.send(cleanedOutput)
 
-client.run(os.getenv('secrets.TOKEN'))
+client.run(os.getenv("TOKEN"))
 
 #### TODO ####
 #3. Probably fix the pictures table at some point that's dogshit
