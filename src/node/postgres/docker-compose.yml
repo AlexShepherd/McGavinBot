@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql-container
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: shooterdb
+    ports:
+      - "5432:5432"
+
+  shooterbot:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: shooterbot-container
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresql
+    environment:
+      DATABASE_URL: postgresql://postgres:docker@db:5432/shooterdb
