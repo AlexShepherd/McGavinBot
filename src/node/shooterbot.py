@@ -6,11 +6,10 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
 try:
     connection = psycopg2.connect(user= os.getenv("DBUSER"),
                                   password = os.getenv("DBPASS"),
-                                  host = os.getenv("DBIP"),
+                                  host = os.getenv("DBHOST"),
                                   port = os.getenv("DBPORT"),
                                   database = os.getenv("DBNAME"))
     cursor = connection.cursor()
