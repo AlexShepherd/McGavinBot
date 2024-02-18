@@ -1,4 +1,4 @@
-Posts various extremely high quality gifs of Shooter McGavin '!shooter' is typed
+Posts various extremely high quality gifs of Shooter McGavin if '!shooter' is typed
 
 build instructions: 
 	docker build -t postgresdb-image .    
