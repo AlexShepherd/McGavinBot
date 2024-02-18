@@ -1,3 +1,5 @@
+Posts various extremely high quality gifs of Shooter McGavin '!shooter' is typed
+
 build instructions: 
 	docker build -t postgresdb-image .    
 	docker run -d --name postgresdb-container -p 5432:5432 postgresql-image
