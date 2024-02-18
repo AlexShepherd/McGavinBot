@@ -7,19 +7,18 @@ import os
 
 load_dotenv()
 try:
-    connection = psycopg2.connect(user= os.getenv("DBUSER"),
+    connection = psycopg2.connect(user = os.getenv("DBUSER"),
                                   password = os.getenv("DBPASS"),
                                   host = os.getenv("DBHOST"),
                                   port = os.getenv("DBPORT"),
                                   database = os.getenv("DBNAME"))
     cursor = connection.cursor()
+    print(connection)
     postgreSQL_select_Query = 'SELECT * FROM pictures'
     cursor.execute(postgreSQL_select_Query)
-    list = cursor.fetchall()
-
+    url_list = cursor.fetchall()
 except (Exception, psycopg2.Error) as error:
     print(f'Error while fetching data from PostgreSQL', error)
-    
 finally:
     #Closing db connection
     if connection:
@@ -49,12 +48,8 @@ async def on_message(message):
     if retry_after:
         return
     else:
-        output = list[random.randint(0, len(list)-1)]  
+        output = url_list[random.randint(0, len(url_list)-1)]  
         cleanedOutput = str(output).replace("'", '').replace(',','').replace('(', '').replace(')', '')
         await message.channel.send(cleanedOutput)
 
 client.run(os.getenv("TOKEN"))
-
-#### TODO ####
-#3. Probably fix the pictures table at some point that's dogshit
-#4. Dockerize I guess idk talk to jared

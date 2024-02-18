@@ -1,0 +1,5 @@
+build instructions: 
+	docker build -t postgresdb-image .    
+	docker run -d --name postgresdb-container -p 5432:5432 postgresql-image
+	docker build -t "shooterbot-image:Dockerfile" .
+	docker run -d --name shooterbot-container shooterbot-image   
